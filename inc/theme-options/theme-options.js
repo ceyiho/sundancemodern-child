@@ -9,7 +9,7 @@
     var current_el_parent_id;
 
     // All input elements using color picker, see theme-options.php
-    var all_input_elements_id = ['#primary_color'];
+    var all_input_elements_id = ['#primary_color', '#entry_title_color'];
     
     // Set input value and color sample. Also a callback function to farbtastic.
 	var pickColor = function(a) {
@@ -20,7 +20,16 @@
         $(current_el_parent_id + ' .color-sample').css('background-color', a);
 	};
 
+    var toggleEntryTitleDiv = function() {
+        var checked = $('#entry_title_color_checkbox').prop('checked');
+            
+        $('#entry_title_color_div').toggle( checked );
+    }
+
 	$(document).ready( function() {
+        // Hide Entry Title Div if the checkbox is unchecked.
+        toggleEntryTitleDiv();
+
         // Create a link on default-color
 		$('.default-color').wrapInner('<a href="#" />');
 
@@ -33,6 +42,11 @@
             
             // ...set color sample
             pickColor( $(id).val() );
+
+            // ...bind focus event to determine current text input
+            $(id).focus( function() {
+                current_el_parent_id = '#' + this.id + '_div';
+            });
 
             // ...bind keyup event
             $(id).keyup( function() {
@@ -70,5 +84,9 @@
 			pickColor( this.innerHTML );
 			e.preventDefault();
 		});
+        
+        // Toggle Entry Title Div when checkbox is clicked.
+        $('#entry_title_color_checkbox').click(toggleEntryTitleDiv);
+
 	});
 })(jQuery);
