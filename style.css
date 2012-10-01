@@ -1,0 +1,11 @@
+/*
+Theme Name:     Sundance Modern
+Theme URI:      http://example.com/
+Description:    Child theme for Sundance
+Author:         Ce-yi
+Author URI:     http://example.com/about/
+Template:       sundance
+Version:        0.1.0
+*/
+
+@import url("../sundance/style.css");
