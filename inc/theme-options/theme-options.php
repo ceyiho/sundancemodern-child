@@ -70,9 +70,10 @@ function sundancemodern_theme_options_init() {
     add_settings_field(
         'primary_color', // Unique identifier for the field for this section
         __( 'Primary Color', 'sundance' ), // Setting field label
-        'sundancemodern_primary_color_input', // Function that renders the settings field
+        'generate_color_input', // Function that renders the settings field
         'theme_options', // Menu slug, used to uniquely identify the page; see sundancemodern_theme_options_add_page()
-        'sundancemodern_color' // Settings section. Same as the first argument in the add_settings_section() above
+        'sundancemodern_color', // Settings section. Same as the first argument in the add_settings_section() above,
+         array('primary_color', true)
     );
     
     add_settings_field(
@@ -130,25 +131,33 @@ function sundance_general_desc() {
 }
 
 /**
- * Renders the Primary Color setting field.
- *
+ * Generates color options input.
+ * 
+ * @param array $args Required. $args[0]: field id. $args[1]: true to render "Default color".
  * @since Sundance Modern 1.0
  */
-function sundancemodern_primary_color_input() {
-	$options         = sundancemodern_get_theme_options();
+function generate_color_input( $args ) {
+    $options         = sundancemodern_get_theme_options();
     $default_options = sundancemodern_get_default_theme_options();
-	?>
-    <div id="primary_color_div">
-        <input type="text" name="sundancemodern_theme_options[primary_color]" id="primary_color" value="<?php echo esc_attr( $options['primary_color'] ); ?>" />
+    $id              = $args[0];
+    $div_id          = $id . '_div';
+    
+    ?>
+    <div id="<?php echo $div_id; ?>">
+        <input type="text" name="sundancemodern_theme_options[<?php echo $id; ?>]" id="<?php echo $id; ?>" value="<?php esc_attr_e( $options[$id] ); ?>" />
         <a href="#" class="pickcolor hide-if-no-js color-sample"></a>
         <input type="button" class="pickcolor hide-if-no-js button" value="<?php esc_attr_e( 'Select a Color', 'sundance' ); ?>" />
         <div class="color-picker" style="z-index: 100; background:#eee; border:1px solid #ccc; position:absolute; display:none;"></div>
-        <br />
-        <span><?php printf( __( 'Default color: %s', 'sundance' ), '<span class="default-color">' . $default_options[ 'primary_color' ] . '</span>' ); ?></span>
+        <?php 
+            if ( $args[1] ) {
+                echo '<br /><span>';
+                printf( __( 'Default color: %s', 'sundance' ), '<span class="default-color">' . $default_options[$id] . '</span>' );
+                echo '</span>';
+            }
+        ?>
     </div>
     <?php
 }
-
 
 /**
  * Determines if the Entry Title checkbox is checked.
@@ -166,29 +175,14 @@ function entry_title_checked() {
  * @since Sundance Modern 1.0
  */
 function sundancemodern_entry_title_color_input() {
-    $options = sundancemodern_get_theme_options();
     ?>
     <p><label>
         <input type="checkbox" id="entry_title_color_checkbox" <?php echo entry_title_checked(); ?> />
         <?php _e( 'Specify a different color for entry titles.' ); ?>
     </label></p>
-
-    <div id="entry_title_color_div">
-        <input type="text" name="sundancemodern_theme_options[entry_title_color]" id="entry_title_color"
-            value="<?php echo esc_attr( $options['entry_title_color'] ); ?>"
-        />
-        <a href="#" class="pickcolor hide-if-no-js color-sample"></a>
-        <input type="button" class="pickcolor hide-if-no-js button" value="<?php esc_attr_e( 'Select a Color', 'sundance' ); ?>" />
-        <div class="color-picker" style="z-index: 100; background:#eee; border:1px solid #ccc; position:absolute; display:none;"></div>
-        <br />
-        <span><?php
-            printf(
-                __( 'Default color: %s', 'sundance' ),
-                '<span class="default-color">' . $options[ 'primary_color' ] . '</span>'
-            );
-        ?></span>
-    </div>
     <?php
+
+     generate_color_input( array('entry_title_color', false) );
 }
 
 /**
