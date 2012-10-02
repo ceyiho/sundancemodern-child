@@ -4,13 +4,16 @@
 
     // Color picker currently active
     var active_color_picker;
-    
+
     // To keep track of the current element
     var current_el_parent_id;
 
     // All input elements using color picker, see theme-options.php
     var all_input_elements_id = ['#primary_color', '#entry_title_color'];
-    
+
+    // Placeholder to keep the value when the field is toggled.
+    var entry_title_bg_color = '';
+
     // Set input value and color sample. Also a callback function to farbtastic.
 	var pickColor = function(a) {
         var current_input_id = current_el_parent_id.replace('_div', '');
@@ -20,10 +23,23 @@
         $(current_el_parent_id + ' .color-sample').css('background-color', a);
 	};
 
+    // Toggle Entry Title color input according to checkbox value.
     var toggleEntryTitleDiv = function() {
         var checked = $('#entry_title_color_checkbox').prop('checked');
-            
+        var inputEl = $('#entry_title_color');
+
+        // Hide/Unhide the div
         $('#entry_title_color_div').toggle( checked );
+
+        // If unchecked, remove the value from the input field
+        // and keep the value to plug it back in the next time
+        // it's checked again.
+        if ( !checked && inputEl.val() ) {
+            entry_title_bg_color = inputEl.val();
+            inputEl.val('');
+        } else if ( entry_title_bg_color ) {
+            inputEl.val(entry_title_bg_color);
+        }
     }
 
 	$(document).ready( function() {
@@ -36,10 +52,10 @@
         // Loop through all color input to...
         $.each(all_input_elements_id, function(index, id) {
             current_el_parent_id = id + '_div';
-            
+
             // ...initialize a color picker
             farbtastic[id] = $.farbtastic(current_el_parent_id + ' .color-picker', pickColor);
-            
+
             // ...set color sample
             pickColor( $(id).val() );
 
@@ -84,7 +100,7 @@
 			pickColor( this.innerHTML );
 			e.preventDefault();
 		});
-        
+
         // Toggle Entry Title Div when checkbox is clicked.
         $('#entry_title_color_checkbox').click(toggleEntryTitleDiv);
 
