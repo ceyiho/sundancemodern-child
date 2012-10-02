@@ -9,7 +9,7 @@
     var current_el_parent_id;
 
     // All input elements using color picker, see theme-options.php
-    var all_input_elements_id = ['#primary_color', '#entry_title_color'];
+    var all_input_elements_id = ['#primary_color', '#ahover_color', '#entry_title_color'];
 
     // Placeholder to keep the value when the field is toggled.
     var entry_title_bg_color = '';

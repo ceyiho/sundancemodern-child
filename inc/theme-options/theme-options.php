@@ -73,17 +73,39 @@ function sundancemodern_theme_options_init() {
         'generate_color_input', // Function that renders the settings field
         'theme_options', // Menu slug, used to uniquely identify the page; see sundancemodern_theme_options_add_page()
         'sundancemodern_color', // Settings section. Same as the first argument in the add_settings_section() above,
-         array('primary_color', true)
+        array(
+            'id'           => 'primary_color',
+            'desc'         => 'Applies to links, entry titles, blockquotes, etc.',
+            'show_default' => true
+        )
     );
-    
+
+    add_settings_field(
+        'ahover_color',
+        __( 'Mouseover Link Color', 'sundance' ),
+        'generate_color_input',
+        'theme_options',
+        'sundancemodern_color',
+        array(
+            'id'           => 'ahover_color',
+            'desc'         => 'Link color when moused-over.',
+            'show_default' => true
+        )
+    );
+
     add_settings_field(
         'entry_title_color',
         __( 'Entry Title Color', 'sundance' ),
-        'sundancemodern_entry_title_color_input',
+        'generate_color_input',
         'theme_options',
-        'sundancemodern_color'
+        'sundancemodern_color',
+        array(
+            'id'       => 'entry_title_color',
+            'desc'     => 'Use a different color for entry titles. Otherwise, Primary Color applies.',
+            'checkbox' => true
+        )
     );
-    
+
     // A dummy section to render the Title of sundance's default options
     add_settings_section(
         'sundance_general', // Unique identifier for the settings section
@@ -102,7 +124,8 @@ add_action( 'admin_init', 'sundancemodern_theme_options_init' );
  */
 function sundancemodern_get_default_theme_options() {
     $default_theme_options = array(
-        'primary_color' => '#2c807f',
+        'primary_color'     => '#2c807f',
+        'ahover_color'      => '#2c2c33',
         'entry_title_color' => ''
     );
 
@@ -121,7 +144,7 @@ function sundancemodern_get_theme_options() {
 
 /**
  * Renders the description of Sundance's default options.
- * 
+ *
  * @since Sundance Modern 1.0
  */
 function sundance_general_desc() {
@@ -132,24 +155,42 @@ function sundance_general_desc() {
 
 /**
  * Generates color options input.
- * 
- * @param array $args Required. $args[0]: field id. $args[1]: true to render "Default color".
+ *
+ * @param array $args Required. Valid keys are: id (required), desc (required), checkbox, show_default.
  * @since Sundance Modern 1.0
  */
 function generate_color_input( $args ) {
     $options         = sundancemodern_get_theme_options();
     $default_options = sundancemodern_get_default_theme_options();
-    $id              = $args[0];
+    $id              = $args['id'];
     $div_id          = $id . '_div';
-    
+
     ?>
+    <!-- Field description -->
+    <p><label class="description">
+        <?php
+            // If checkbox is needed, draw it.
+            if ( $args['checkbox'] ) {
+                $checkbox_id = $id . '_checkbox';
+                echo '<input type="checkbox" id="' . $checkbox_id . '"' . sundancemodern_checkbox_checked($id) . ' /> ';
+            }
+
+            // Description
+            echo $args['desc'];
+        ?>
+    </label></p>
+
+    <!-- Color option input -->
     <div id="<?php echo $div_id; ?>">
         <input type="text" name="sundancemodern_theme_options[<?php echo $id; ?>]" id="<?php echo $id; ?>" value="<?php esc_attr_e( $options[$id] ); ?>" />
+
+        <!-- Color sample -->
         <a href="#" class="pickcolor hide-if-no-js color-sample"></a>
         <input type="button" class="pickcolor hide-if-no-js button" value="<?php esc_attr_e( 'Select a Color', 'sundance' ); ?>" />
         <div class="color-picker" style="z-index: 100; background:#eee; border:1px solid #ccc; position:absolute; display:none;"></div>
-        <?php 
-            if ( $args[1] ) {
+        <?php
+            // Display "Default color" if so specified.
+            if ( $args['show_default'] ) {
                 echo '<br /><span>';
                 printf( __( 'Default color: %s', 'sundance' ), '<span class="default-color">' . $default_options[$id] . '</span>' );
                 echo '</span>';
@@ -160,29 +201,14 @@ function generate_color_input( $args ) {
 }
 
 /**
- * Determines if the Entry Title checkbox is checked.
+ * Determines if a checkbox is checked.
+ * A checkbox will only be checked when its corresponding input field is not empty.
  *
  * @since Sundance Modern 1.0
  */
-function entry_title_checked() {
+function sundancemodern_checkbox_checked( $id ) {
     $options = sundancemodern_get_theme_options();
-    return $options['entry_title_color'] ? 'checked="checked"' : '';
-}
-
-/**
- * Renders the Entry Title Color setting field.
- *
- * @since Sundance Modern 1.0
- */
-function sundancemodern_entry_title_color_input() {
-    ?>
-    <p><label>
-        <input type="checkbox" id="entry_title_color_checkbox" <?php echo entry_title_checked(); ?> />
-        <?php _e( 'Specify a different color for entry titles.' ); ?>
-    </label></p>
-    <?php
-
-     generate_color_input( array('entry_title_color', false) );
+    return $options[$id] ? 'checked="checked"' : '';
 }
 
 /**
