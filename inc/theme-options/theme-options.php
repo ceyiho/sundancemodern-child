@@ -195,10 +195,12 @@ function sundancemodern_entry_title_color_input() {
 function sundancemodern_theme_options_validate( $input ) {
     $output = $defaults = sundancemodern_get_default_theme_options();
 
-    // Primary color must be 3 or 6 hexadecimal characters
-	if ( isset( $input['primary_color'] ) && preg_match( '/^#?([a-f0-9]{3}){1,2}$/i', $input['primary_color'] ) ) :
-		$output['primary_color'] = '#' . strtolower( ltrim( $input['primary_color'], '#' ) );
-    endif;
+    foreach ( array_keys($output) as $key ) {
+        // Colors must be 3 or 6 hexadecimal characters
+        if ( isset( $input[$key] ) && preg_match( '/^#?([a-f0-9]{3}){1,2}$/i', $input[$key] ) ) :
+            $output[$key] = '#' . strtolower( ltrim( $input[$key], '#' ) );
+        endif;
+    }
 
     return apply_filters( 'sundancemodern_theme_options_validate', $output, $input, $defaults );
 }
