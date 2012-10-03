@@ -167,7 +167,7 @@ function generate_color_input( $args ) {
 
     ?>
     <!-- Field description -->
-    <p><label class="description">
+    <label class="description">
         <?php
             // If checkbox is needed, draw it.
             if ( $args['checkbox'] ) {
@@ -178,7 +178,7 @@ function generate_color_input( $args ) {
             // Description
             echo $args['desc'];
         ?>
-    </label></p>
+    </label>
 
     <!-- Color option input -->
     <div id="<?php echo $div_id; ?>">

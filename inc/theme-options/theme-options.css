@@ -1,4 +1,4 @@
-/* 
+/*
     Document   : Sundance Modern theme-options CSS
     Created on : Sep 29, 2012, 8:17:12 PM
     Author     : Ce-yi
@@ -13,4 +13,8 @@
 	border: 1px solid #dfdfdf;
 	margin: 0 7px 0 3px;
 	padding: 4px 14px;
+}
+
+.form-table div {
+    padding: 5px 0;
 }
