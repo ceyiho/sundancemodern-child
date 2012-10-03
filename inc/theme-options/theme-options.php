@@ -181,7 +181,7 @@ function generate_color_input( $args ) {
     </label>
 
     <!-- Color option input -->
-    <div id="<?php echo $div_id; ?>">
+    <div id="<?php echo $div_id; ?>" class="color-options-div">
         <input type="text" name="sundancemodern_theme_options[<?php echo $id; ?>]" id="<?php echo $id; ?>" value="<?php esc_attr_e( $options[$id] ); ?>" />
 
         <!-- Color sample -->
