@@ -786,7 +786,7 @@ a:active {
 	margin: 0 0 1.5714285714em;
 }
 .page-header {
-	margin: 0 0 3.1428571428em 14.28571428%;
+	margin: 0 0 3.1428571428em 0;
 }
 .no-sidebar .page-header {
 	margin: 0 0 3.1428571428em 0;
@@ -1290,7 +1290,7 @@ video {
 		width: 100%;
 	}
 	#masthead hgroup {
-		margin: 0 0 2.2857142856em 11.17886178%;
+		margin: 0 0 2.2857142856em 0;
 	}
 	.site-content {
 		float: none;
@@ -1304,20 +1304,20 @@ video {
 		width: 100%;
 	}
 	.hentry {
-		margin: 0 0 3.1428571428em 11.17886178%;
+		margin: 0 0 3.1428571428em 0;
 	}
 	.entry-header .avatar {
 		margin: 9px 0 0 -12.58581235%;
 	}
 	#content .site-navigation {
-		margin: 0 0 1.5714285714em 11.17886178%;
+		margin: 0 0 1.5714285714em 0;
 	}
 	.syndicate,
 	.widget {
-		padding: 1.6666666666em 0 0 11.17886178%;
+		padding: 1.6666666666em 0 0 0;
 	}
 	.page-header {
-		margin: 0 0 3.1428571428em 11.17886178%;
+		margin: 0 0 3.1428571428em 0;
 	}
 	.featured-content {
 		float: none;
@@ -1362,7 +1362,7 @@ video {
 		width: 100%;
 	}
 	#comments {
-		margin: 0 0 1.5714285714em 11.17886178%;
+		margin: 0 0 1.5714285714em 0;
 	}
 	.comment .avatar {
 		margin: 3px 0 0 -12.58581235%;
