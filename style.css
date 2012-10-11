@@ -971,13 +971,8 @@ video {
 	background-color: #464646;
 }
 #comments {
-	margin: 0 0 1.5714285714em 14.28571428%;
-	padding: 1.5714285714em 0;
-}
-.full-width #comments,
-.image-attachment #comments,
-.no-sidebar #comments {
 	margin: 0 0 1.5714285714em 0;
+	padding: 1.5714285714em 0;
 }
 .commentlist,
 .children {
