@@ -63,7 +63,7 @@ function sundancemodern_theme_options_init() {
         'sundancemodern_color', // Unique identifier for the settings section
         'Color Options', // Section title
         '__return_false', // Section callback (we don't want anything)
-        'theme_options' // Menu slug, used to uniquely identify the page; see sundancemodern_theme_options_add_page()
+        'theme_options' // Menu slug, add to the default Theme Options page.
     );
 
     // Register our individual settings fields
@@ -71,7 +71,7 @@ function sundancemodern_theme_options_init() {
         'primary_color', // Unique identifier for the field for this section
         __( 'Primary Color', 'sundance' ), // Setting field label
         'generate_color_input', // Function that renders the settings field
-        'theme_options', // Menu slug, used to uniquely identify the page; see sundancemodern_theme_options_add_page()
+        'theme_options', // Menu slug, add to the default Theme Options page.
         'sundancemodern_color', // Settings section. Same as the first argument in the add_settings_section() above,
         array(
             'id'           => 'primary_color',
@@ -106,12 +106,27 @@ function sundancemodern_theme_options_init() {
         )
     );
 
+    add_settings_section(
+        'sundancemodern_author_display', // Unique identifier for the settings section
+        'Author Name', // Section title
+        '__return_false', // Section callback
+        'theme_options' // Menu slug, add to the default Theme Options page.
+    );
+
+    add_settings_field(
+        'author_display',
+        __( 'Author Name', 'sundance' ),
+        'generate_author_display_checkbox',
+        'theme_options',
+        'sundancemodern_author_display'
+    );
+
     // A dummy section to render the Title of sundance's default options
     add_settings_section(
         'sundance_general', // Unique identifier for the settings section
         'Social Media Links', // Section title
         'sundance_general_desc', // Section callback
-        'theme_options' // Menu slug, used to uniquely identify the page; see sundancemodern_theme_options_add_page()
+        'theme_options' // Menu slug, add to the default Theme Options page.
     );
 }
 add_action( 'admin_init', 'sundancemodern_theme_options_init' );
@@ -126,7 +141,8 @@ function sundancemodern_get_default_theme_options() {
     $default_theme_options = array(
         'primary_color'     => '#2c807f',
         'ahover_color'      => '#2c2c33',
-        'entry_title_color' => ''
+        'entry_title_color' => '',
+        'author_display'    => 'on'
     );
 
     return apply_filters( 'sundancemodern_default_theme_options', $default_theme_options );
@@ -204,11 +220,32 @@ function generate_color_input( $args ) {
  * Determines if a checkbox is checked.
  * A checkbox will only be checked when its corresponding input field is not empty.
  *
+ * @param string $id Required. The id of the settings field.
  * @since Sundance Modern 1.0
  */
 function sundancemodern_checkbox_checked( $id ) {
     $options = sundancemodern_get_theme_options();
     return $options[$id] ? 'checked="checked"' : '';
+}
+
+/**
+ * Generates the checkbox for author name display option.
+ *
+ * @since Sundance Modern 1.0
+ */
+function generate_author_display_checkbox() {
+    $options = sundancemodern_get_theme_options();
+
+	?>
+	<label class="description">
+		<input type="checkbox" name="sundancemodern_theme_options[author_display]" id="author_display"
+            <?php checked( 'on', $options['author_display'] ); ?>
+        />
+
+		<?php _e( 'Show author name on each post.', 'sundance' );  ?>
+	</label>
+	<?php
+
 }
 
 /**
@@ -222,11 +259,14 @@ function sundancemodern_theme_options_validate( $input ) {
     $output = $defaults = sundancemodern_get_default_theme_options();
 
     foreach ( array_keys($output) as $key ) {
-        // Colors must be 3 or 6 hexadecimal characters
-        if ( isset( $input[$key] ) && preg_match( '/^#?([a-f0-9]{3}){1,2}$/i', $input[$key] ) ) :
+        // Color Options: Colors must be 3 or 6 hexadecimal characters
+        if ( preg_match( '/color/', $key ) && isset( $input[$key] ) && preg_match( '/^#?([a-f0-9]{3}){1,2}$/i', $input[$key] ) ) :
             $output[$key] = '#' . strtolower( ltrim( $input[$key], '#' ) );
         endif;
     }
+
+    // The author_display checkbox should either be on or off
+    $output['author_display'] = ( $input['author_display'] == 'on' ? 'on' : 'off' );
 
     return apply_filters( 'sundancemodern_theme_options_validate', $output, $input, $defaults );
 }
