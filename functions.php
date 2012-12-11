@@ -11,7 +11,7 @@ function sundancemodern_setup() {
 	 */
     $files = array(
         '/inc/theme-options/theme-options.php',
-        '/inc/theme-options/custom-color.php'
+        '/inc/theme-options/custom-css.php'
     );
 
     foreach( $files as $file ) {

@@ -1,12 +1,13 @@
 <?php
 /**
- * Adds style blocks in <head> for user defined colors.
+ * Adds style blocks in <head> for user defined styles
+ * as specified in Theme Options.
  *
  * This function is attached to the wp_head action hook.
  *
  * @since Sundance Modern
  */
-function sundancemodern_print_primary_color_style() {
+function sundancemodern_user_defined_style() {
 	$options = sundancemodern_get_theme_options();
 	$default_options = sundancemodern_get_default_theme_options();
 
@@ -70,7 +71,21 @@ function sundancemodern_print_primary_color_style() {
         <?php
     }
 
+    // Hide author's name if display option is set to off.
+    $author_display = $options['author_display'];
+
+    if ( $author_display === 'off' ) {
+         ?>
+        <style type="text/css" id="author-name-hidden">
+            .single .byline,
+            .group-blog .byline {
+                display: none;
+            }
+        </style>
+        <?php
+
+    }
 
 }
-add_action( 'wp_head', 'sundancemodern_print_primary_color_style' );
+add_action( 'wp_head', 'sundancemodern_user_defined_style' );
 ?>
