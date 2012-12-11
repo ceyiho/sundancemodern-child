@@ -83,7 +83,6 @@ function sundancemodern_user_defined_style() {
             }
         </style>
         <?php
-
     }
 
 }
