@@ -178,8 +178,13 @@ textarea {
 	font-weight: 400;
 	line-height: 1.5714285714;
 }
-body {
+/* Add a wrapper when background image is set to maintain the readability */
+body.custom-background #page {
 	background: url(images/bg.jpg) repeat 0 0;
+}
+/* Remove the wrapper when background is a solid color and background image is empty */
+body.custom-background.custom-background-image-empty #page {
+	background: none;
 }
 /* Headings */
 h1,h2,h3,h4,h5,h6 {
@@ -408,6 +413,7 @@ input::-moz-focus-inner { /* Corrects inner padding and border displayed oddly i
 	padding: 0;
 }
 input[type=text],
+input[type=email],
 input[type=password],
 textarea {
 	color: #666;
@@ -416,11 +422,13 @@ textarea {
 }
 input[type=text]:focus,
 input[type=password]:focus,
+input[type=email]:focus,
 textarea:focus {
 	color: #111;
 }
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=email] {
 	padding: 5px;
 }
 input[type=password] {
@@ -600,7 +608,6 @@ a:active {
 	margin: 0;
 }
 .featured-posts .featured {
-	float: left;
 	width: 100%;
 }
 .featured-posts .slides .hentry {
@@ -665,7 +672,7 @@ a:active {
 .flex-direction-nav li a:hover {
 	opacity: 0.8;
 }
-.flex-direction-nav li .next {
+.flex-direction-nav li .flex-next {
 	background-position: 0 -28px;
 }
 .flex-direction-nav li .disabled {
@@ -703,7 +710,7 @@ a:active {
 .flex-control-nav li a:hover {
 	background-position: 0 -12px;
 }
-.flex-control-nav li a.active {
+.flex-control-nav li a.flex-active {
 	background-position: 0 -24px;
 	cursor: default;
 }
@@ -1361,10 +1368,10 @@ video {
 		position: absolute;
 		top: 0;
 	}
-	.flex-direction-nav li .prev {
+	.flex-direction-nav li .flex-prev {
 		margin: 0 0 0 -6px;
 	}
-	.flex-direction-nav li .next{
+	.flex-direction-nav li .flex-next{
 		left: auto;
 		margin: 0 -6px 0 0;
 		right: 0;
@@ -1533,4 +1540,58 @@ video {
 }
 #ie8 .syndicate li:first-child {
 	margin-left: 0;
+}
+
+/* =WP.com
+-------------------------------------------------------------- */
+
+.featured-content div.sharedaddy,
+.featured-content .pd-rating {
+	display: none;
+}
+#content div.sharedaddy {
+	margin: 0 0 1.5714285714em 0;
+}
+#content div.sharedaddy div.sd-block {
+	border-top: 1px dotted #b3b3b3;
+}
+.syntaxhighlighter {
+	overflow: auto;
+}
+#content .reblog-post {
+	border-color: #267172;
+}
+#wpstats {
+	display: block;
+	margin: 10px auto;
+	position: relative;
+	z-index: 999;
+}
+
+/* =Jetpack: Infinite Scroll
+-------------------------------------------------------------- */
+.infinite-scroll #content {
+	margin-bottom: 50px;
+}
+.infinite-scroll #content .infinite-wrap {
+	border-top: none;
+}
+.infinite-scroll .infinite-loader,
+.infinite-scroll #infinite-handle span {
+	margin-left: 14.28571428%;
+}
+/**
+* Elements to hide:
+* (footer widgets, post navigation, regular footer)
+*/
+.infinite-scroll #nav-below,
+.infinite-scroll #nav-above,
+.infinite-scroll.neverending #colophon {
+	display: none;
+}
+/**
+* Hooks to infinity-end body class to restore footer
+*/
+.infinity-end.neverending #colophon {
+	display: block;
 }
