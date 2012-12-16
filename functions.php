@@ -17,6 +17,16 @@ function sundancemodern_setup() {
     foreach( $files as $file ) {
         require( get_stylesheet_directory() . $file );
     }
+
+    /**
+	 * Custom background.
+	 */
+	$bg_defaults = array(
+		'default-color' => 'efe7da',
+		'default-image' => get_stylesheet_directory_uri() . '/images/bg.jpg'
+	);
+
+    add_theme_support( 'custom-background', $bg_defaults );
 }
 add_action( 'after_setup_theme', 'sundancemodern_setup' );
 
