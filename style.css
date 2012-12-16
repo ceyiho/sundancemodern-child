@@ -1,12 +1,24 @@
 /*
-Theme Name:     Sundance Modern - Child Theme
-Theme URI:      http://example.com/
-Description:    Child theme for Sundance
-Author:         Ce-yi
-Author URI:     http://example.com/about/
-Template:       sundance
-Version:        0.1.0
+Theme Name: Sundance Modern - Child Theme of Sundance
+Theme URI:
+Template: sundance
+Author: Ce-Yi Ho
+Author URI:
+Description: A free video theme derived from the Sundance theme by Automattic. Features minimalistic designs, clean typography with 'Open Sans' fonts, and colorful icons for your social media links. It also features customizable link and entry title colours, giving you more control of the look and feel of your site. Unlike Sundance, this theme does not display author or user avatars. There is also an option to display or hide author's name on each post.
+Version: 1.1
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Tags: gray, light, one-column, two-columns, right-sidebar, fixed-width, custom-background, custom-colors, custom-header, custom-menu, full-width-template, post-formats, rtl-language-support, sticky-post, theme-options, translation-ready
+
+This theme, like WordPress, is licensed under the GPL.
+Use it to make something cool, have fun, and share what you've learned with others.
+
+Resetting and rebuilding styles have been helped along thanks to the fine work of
+Eric Meyer http://meyerweb.com/eric/tools/css/reset/index.html
+along with Nicolas Gallagher and Jonathan Neal http://necolas.github.com/normalize.css/
+and Blueprint http://www.blueprintcss.org/
 */
+
 
 /* =Reset
 -------------------------------------------------------------- */
