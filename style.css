@@ -1285,20 +1285,6 @@ video {
 /* =Responsive Structure
 -------------------------------------------------------------- */
 
-@media screen and (max-width: 1024px) {
-	.flex-direction-nav {
-		bottom: -36px;
-		left: auto;
-		margin: 0;
-		right: 21px;
-		top: auto;
-		width: auto;
-	}
-	.flex-direction-nav li {
-		float: left;
-		margin: 0 1px 0 0;
-	}
-}
 
 @media screen and (max-width: 768px) {
 	.site-title {
@@ -1348,6 +1334,9 @@ video {
 		float: none;
 		margin: 0;
 		width: 100%;
+	}
+    .featured-posts-wrapper {
+		margin: -0.8571428571em 0 4.7142857142em 0;
 	}
 	.featured-summary p {
 		padding: 0 0 2em 0;
