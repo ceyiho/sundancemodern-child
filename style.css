@@ -522,7 +522,7 @@ a:active {
 }
 .main-navigation a {
 	font-size: 13px;
-	font-size: 1.3rem;
+	font-size: 1.5rem;
 	display: block;
 	line-height: 1.0em;
 	padding: 5px 10px;
@@ -755,6 +755,7 @@ a:active {
 	font-size: 12px;
 	font-size: 1.2rem;
 	font-style: italic;
+    clear: both;
 }
 .byline {
 	display: none;
@@ -1091,24 +1092,34 @@ video {
 	display: block;
 	height: 28px;
 	width: 28px;
-}
-.syndicate li a:hover {
-	opacity: 0.8;
+    background-image: url(images/social-media-sprite.png);
 }
 .syndicate li a.rss-link {
-	background: url(../sundance/images/rss-ico.gif) no-repeat 0 0;
+	background-position: 0 -84px;
 }
-.syndicate li a.facebook-link {
-	background: url(../sundance/images/facebook-ico.gif) no-repeat 0 0;
+.syndicate li a.rss-link:hover {
+	background-position: -28px -84px;
+}
+.syndicate li a.facebook-link:hover {
+	background-position: -28px 0;
 }
 .syndicate li a.twitter-link {
-	background: url(../sundance/images/twitter-ico.gif) no-repeat 0 0;
+	background-position: 0 -112px;
+}
+.syndicate li a.twitter-link:hover {
+	background-position: -28px -112px;
 }
 .syndicate li a.google-link {
-	background: url(../sundance/images/google-ico.gif) no-repeat 0 0;
+	background-position: 0 -56px;
+}
+.syndicate li a.google-link:hover {
+	background-position: -28px -56px;
 }
 .syndicate li a.flickr-link {
-	background: url(../sundance/images/flickr-ico.gif) no-repeat 0 0;
+	background-position: 0 -28px;
+}
+.syndicate li a.flickr-link:hover {
+	background-position: -28px -28px;
 }
 
 
